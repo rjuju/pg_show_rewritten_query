@@ -1,0 +1,5 @@
+# pg_show_rewritten_query extension
+comment = 'Print a query after rewrite stage'
+default_version = '1.0.0'
+module_pathname = '$libdir/pg_show_rewritten_query'
+relocatable = true
