@@ -30,19 +30,12 @@ PG_MODULE_MAGIC;
 /*--- Functions --- */
 
 void	_PG_init(void);
-void	_PG_fini(void);
 
 extern PGDLLEXPORT Datum	pg_show_rewritten_query(PG_FUNCTION_ARGS);
 PG_FUNCTION_INFO_V1(pg_show_rewritten_query);
 
 void
 _PG_init(void)
-{
-	/* nothing to do */
-}
-
-void
-_PG_fini(void)
 {
 	/* nothing to do */
 }
