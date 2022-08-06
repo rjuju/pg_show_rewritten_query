@@ -17,6 +17,8 @@ Usage example
 -------------
 
 ```
+CREATE EXTENSION pg_show_rewritten_query;
+
 SELECT * FROM pg_show_rewritten_query('select * from pg_stat_bgwriter');
                                pg_show_rewritten_query
 --------------------------------------------------------------------------------------
