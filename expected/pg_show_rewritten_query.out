@@ -15,3 +15,10 @@ SELECT pg_show_rewritten_query('SELECT * FROM v_query_def');
  
 (1 row)
 
+SELECT pg_show_rewritten_query('CREATE TABLE t(id integer)');
+   pg_show_rewritten_query   
+-----------------------------
+ CREATE TABLE t(id integer);+
+ 
+(1 row)
+
