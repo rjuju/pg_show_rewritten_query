@@ -83,18 +83,16 @@ pg_show_rewritten_query(PG_FUNCTION_ARGS)
 
 	foreach(lc, querytree_list)
 	{
-		char *sql;
-
 		query = (Query *) lfirst(lc);
 
 		if (query->utilityStmt)
 			appendStringInfo(&res, "%s;\n", sql);
 		else
 		{
-			sql = pg_get_querydef(query, pretty);
+			char *lsql = pg_get_querydef(query, pretty);
 
-			appendStringInfo(&res, "%s;\n", sql);
-			pfree(sql);
+			appendStringInfo(&res, "%s;\n", lsql);
+			pfree(lsql);
 		}
 	}
 	PG_RETURN_TEXT_P(cstring_to_text(res.data));
