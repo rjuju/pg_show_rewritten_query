@@ -12,7 +12,7 @@
 #include "postgres.h"
 
 #if PG_VERSION_NUM < 150000
-#error This extensions requires PostgreSQL 15 or above.
+#error This extension requires PostgreSQL 15 or above.
 #endif
 
 #include "lib/stringinfo.h"
