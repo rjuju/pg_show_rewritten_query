@@ -15,6 +15,7 @@
 #error This extension requires PostgreSQL 15 or above.
 #endif
 
+#include "funcapi.h"
 #include "lib/stringinfo.h"
 #include "nodes/pg_list.h"
 #include "nodes/parsenodes.h"
@@ -45,13 +46,15 @@ pg_show_rewritten_query(PG_FUNCTION_ARGS)
 {
 	char       *sql = TextDatumGetCString(PG_GETARG_TEXT_PP(0));
 	bool		pretty = PG_GETARG_BOOL(1);
+	ReturnSetInfo *rsinfo = (ReturnSetInfo *) fcinfo->resultinfo;
 	List       *parsetree_list;
 	List       *querytree_list;
 	RawStmt    *parsetree;
 	Query       *query;
 	bool        snapshot_set = false;
-	StringInfoData  res;
 	ListCell   *lc;
+
+	SetSingleFuncCall(fcinfo, SRF_SINGLE_USE_EXPECTED);
 
 	parsetree_list = pg_parse_query(sql);
 
@@ -60,8 +63,6 @@ pg_show_rewritten_query(PG_FUNCTION_ARGS)
 		ereport(ERROR,
 				(errcode(ERRCODE_INVALID_PARAMETER_VALUE),
 				 errmsg("a single statement should be provided")));
-
-	initStringInfo(&res);
 
 	parsetree = linitial_node(RawStmt, parsetree_list);
 
@@ -83,17 +84,25 @@ pg_show_rewritten_query(PG_FUNCTION_ARGS)
 
 	foreach(lc, querytree_list)
 	{
+		Datum		values[1];
+		bool		nulls[1];
+
 		query = (Query *) lfirst(lc);
+		nulls[0] = false;
 
 		if (query->utilityStmt)
-			appendStringInfo(&res, "%s;\n", sql);
+			values[0] = CStringGetTextDatum(sql);
 		else
 		{
 			char *lsql = pg_get_querydef(query, pretty);
 
-			appendStringInfo(&res, "%s;\n", lsql);
+			values[0] = CStringGetTextDatum(lsql);
 			pfree(lsql);
 		}
+
+		tuplestore_putvalues(rsinfo->setResult, rsinfo->setDesc,
+				values, nulls);
 	}
-	PG_RETURN_TEXT_P(cstring_to_text(res.data));
+
+	return (Datum) 0;
 }

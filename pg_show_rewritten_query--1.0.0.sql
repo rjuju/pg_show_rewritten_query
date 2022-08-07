@@ -12,7 +12,7 @@ CREATE FUNCTION pg_show_rewritten_query(
     IN sql text,
     IN pretty bool DEFAULT true
 )
-RETURNS text
+RETURNS SETOF text
 LANGUAGE C STRICT STABLE COST 100
 AS '$libdir/pg_show_rewritten_query', 'pg_show_rewritten_query';
 GRANT ALL ON FUNCTION pg_show_rewritten_query(text, bool) TO public;
