@@ -44,7 +44,7 @@ _PG_init(void)
 PGDLLEXPORT Datum
 pg_show_rewritten_query(PG_FUNCTION_ARGS)
 {
-	char       *sql = TextDatumGetCString(PG_GETARG_TEXT_PP(0));
+	char       *sql = text_to_cstring(PG_GETARG_TEXT_PP(0));
 	bool		pretty = PG_GETARG_BOOL(1);
 	ReturnSetInfo *rsinfo = (ReturnSetInfo *) fcinfo->resultinfo;
 	List       *parsetree_list;
