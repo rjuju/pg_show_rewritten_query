@@ -25,6 +25,11 @@
 #include "utils/ruleutils.h"
 #include "utils/snapmgr.h"
 
+#ifndef MAT_SRF_USE_EXPECTED_DESC
+#define InitMaterializedSRF(i,f) SetSingleFuncCall(i, f)
+#define MAT_SRF_USE_EXPECTED_DESC SRF_SINGLE_USE_EXPECTED
+#endif
+
 PG_MODULE_MAGIC;
 
 
@@ -54,7 +59,7 @@ pg_show_rewritten_query(PG_FUNCTION_ARGS)
 	bool        snapshot_set = false;
 	ListCell   *lc;
 
-	SetSingleFuncCall(fcinfo, SRF_SINGLE_USE_EXPECTED);
+	InitMaterializedSRF(fcinfo, MAT_SRF_USE_EXPECTED_DESC);
 
 	parsetree_list = pg_parse_query(sql);
 
