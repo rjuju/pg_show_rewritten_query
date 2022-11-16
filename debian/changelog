@@ -1,0 +1,5 @@
+pg-show-rewritten-query (1.0.0-1) unstable; urgency=low
+
+  * Initial release.
+
+ -- Thomas Reiss <frost242@gmail.com>  Wed, 16 Nov 2022 15:19:36 +0100
