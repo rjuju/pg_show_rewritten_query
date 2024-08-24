@@ -1,7 +1,7 @@
 -- This program is open source, licensed under the PostgreSQL License.
 -- For license terms, see the LICENSE file.
 --
--- Copyright (c) 2022-2023, Julien Rouhaud
+-- Copyright (c) 2022-2024, Julien Rouhaud
 
 -- complain if script is sourced in psql, rather than via CREATE EXTENSION
 \echo Use "CREATE EXTENSION pg_show_rewritten_query" to load this file. \quit
