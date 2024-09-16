@@ -1,0 +1,15 @@
+Source: pg-show-rewritten-query
+Section: database
+Priority: optional
+Maintainer: Julien Rouhaud <rjuju123@gmail.com>
+Standards-Version: 1.0.0
+Rules-Requires-Root: no
+Build-Depends: debhelper-compat (= 13), postgresql-all (>= 217~)
+Vcs-Browser: https://github.com/rjuju/pg_show_rewritten_query
+Vcs-Git: https://github.com/rjuju/pg_show_rewritten_query.git
+
+Package: postgresql-15-pg-show-rewritten-query
+Architecture: any
+Depends: ${misc:Depends}, ${shlibs:Depends}, postgresql-15,
+Description: Display a query as it will be executed, that is after the
+ analyze and rewrite steps.
